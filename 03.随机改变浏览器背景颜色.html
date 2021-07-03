@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="button" id="button" onclick="btnClick()" value="点击随机改变页面颜色">
+    <script>
+        function btnClick() {
+            var color = '#' + Math.random().toString(16).substr(-6)
+            console.log(color)
+            document.bgColor = color
+        }
+    </script>
+</body>
+
+</html>

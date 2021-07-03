@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h2>
+        作业2：鸡兔同栏，已知头共有35，脚共有96，请问分别有多少只级和多少只兔子
+    </h2>
+    <div>鸡的数量是：<span id="chicken"></span></div>
+    <div>兔的数量是：<span id="rabbit"></span></div>
+
+    <script>
+        var chicken;
+        var rabbit;
+        var flag
+        for (let i = 0; i < 36; i++) {
+            chicken = i;
+            rabbit = 35 - chicken;
+            foot = chicken * 2 + rabbit * 4
+            console.log(chicken, rabbit, foot);
+            if (foot == 96) {
+                document.querySelector('#chicken').innerHTML = chicken;
+                document.querySelector('#rabbit').innerHTML = rabbit;
+                break;
+            }
+        }
+    </script>
+</body>
+
+</html>
