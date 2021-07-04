@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Accessible Map</title>
+    <link rel="stylesheet" href="./ol/ol.css">
+    <style>
+      html,
+      body{
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .mapview{
+        margin: 0 auto;
+        display: flex;
+        width: 90%;
+        height: 90%;
+      }
+      .map{
+        flex: 1;
+        margin: 10px 20px;
+        border: 2px solid #333;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="mapview">
+      <div id="map1" class="map"></div>
+      <div id="map2" class="map"></div>
+    </div>
+
+    <script src="./ol/ol.js"></script>
+    <script src="./ol/jquery.min.js"></script>
+    <script>
+      var view = new ol.View({
+        center: ol.proj.transform([110,39],"EPSG:4326","EPSG:3857"),
+        zoom: 4,
+      });
+
+      var map1 = new ol.Map({
+        controls: new ol.control.defaults({
+          attribute:false
+        }).extend([]),
+        target: "map1",
+        layers: [
+          getTdtLayer('vec_w'),
+          getTdtLayer('cva_w'),
+        ],
+        view: view
+      });
+
+      var map2 = new ol.Map({
+        controls: new ol.control.defaults({
+          attribute:false
+        }).extend([]),
+        target: "map2",
+        layers: [
+          getTdtLayer('img_w'),
+        ],
+        view: view
+      });
+
+      function getTdtLayer(lyr) {
+        var url = 'http://t0.tianditu.com/DataServer?T='+ lyr +'&X={x}&Y={y}&L={z}'+'&tk=298e9de6484c849b15c6e9ee5a1f539b';
+        console.log(url);
+        // url: 'https://t0.tianditu.gov.cn/DataServer?T=cia_w&x={x}&y={y}&l={z}&tk=2ce94f67e58faa24beb7cb8a09780552'
+        var layer = new ol.layer.Tile({
+          source:new ol.source.XYZ({
+            url:url
+          })
+        });
+        return layer;
+      }
+    </script>
+  </body>
+</html>

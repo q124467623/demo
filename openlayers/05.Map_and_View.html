@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Accessible Map</title>
+    <link rel="stylesheet" href="./ol/ol.css">
+    <style>
+      html,
+      body{
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .mapview{
+        margin: 0 auto;
+        display: flex;
+        width: 90%;
+        height: 90%;
+      }
+      .map{
+        flex: 1;
+        margin: 10px 20px;
+        border: 2px solid #333;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="tool-box">
+      <button id="setTarget">setTarget</button>
+      <button id="setView">setView</button>
+    </div>
+    <div class="mapview">
+      <div id="map1" class="map"></div>
+      <div id="map2" class="map"></div>
+    </div>
+
+    <script src="./ol/ol.js"></script>
+    <script src="./ol/jquery.min.js"></script>
+    <script>
+      var view1 = new ol.View({
+        center: ol.proj.transform([110,39],"EPSG:4326","EPSG:3857"),
+        zoom: 4,
+      });
+      var view2 = new ol.View({
+        center: ol.proj.fromLonLat([110,39]),
+        zoom: 7,
+      });
+
+      var target = 'map1';
+      var view = view1;
+
+      var map = new ol.Map({
+        controls: new ol.control.defaults({
+          attribute:false
+        }).extend([]),
+        target: target,
+        layers: [
+          new ol.layer.Tile({
+          source: new ol.source.OSM(),
+        }) ],
+        view: view
+      });
+
+      $('#setTarget').on('click',function (){
+        if(target === 'map1'){
+          target = 'map2'
+          map.set('target',target)  //和map.setTarget(target)等价
+        }else{
+          target = 'map1'
+          map.setTarget(target)
+        }
+      })
+      $('#setView').on('click',function (){
+        if(view === view1){
+          view = view2
+          map.set('view',view)
+        }else{
+          view = view1
+          map.setView(view)
+        }
+      })
+
+    </script>
+  </body>
+</html>
